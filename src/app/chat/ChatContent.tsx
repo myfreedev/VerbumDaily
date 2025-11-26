@@ -28,6 +28,15 @@ export default function ChatContent() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    // Auto-resize textarea
+    useEffect(() => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = "auto";
+            textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 120)}px`;
+        }
+    }, [input]);
 
     const scrollToBottom = (behavior: ScrollBehavior = "smooth") => {
         messagesEndRef.current?.scrollIntoView({ behavior });
@@ -108,7 +117,7 @@ export default function ChatContent() {
     }
 
     return (
-        <div className="fixed inset-0 z-10 flex flex-col pt-24 h-[100dvh]">
+        <div className="fixed inset-0 z-10 flex flex-col pt-32 h-[100dvh]">
             <div className="w-full max-w-5xl mx-auto flex-1 relative px-4 flex flex-col min-h-0">
                 {/* Saint Header - Fixed at top of container */}
                 <div className="glass-panel p-4 rounded-3xl mb-4 border-2 border-divine-gold/30 flex-shrink-0">
@@ -211,14 +220,20 @@ export default function ChatContent() {
 
                 {/* Bottom Section: Input - Optimized for Mobile */}
                 <div className="absolute bottom-0 left-0 right-0 px-2 sm:px-4 pb-safe pb-3 sm:pb-4 pt-6 sm:pt-10 bg-gradient-to-t from-divine-blue-deep via-divine-blue-deep/95 to-transparent z-20">
-                    <div className="glass-panel rounded-full p-1.5 sm:p-2 flex items-center gap-1.5 sm:gap-2 shadow-2xl border-2 border-divine-gold/40 hover:border-divine-gold transition-all duration-300">
-                        <input
-                            type="text"
+                    <div className="glass-panel rounded-[2rem] p-1.5 sm:p-2 flex items-end gap-1.5 sm:gap-2 shadow-2xl border-2 border-divine-gold/40 hover:border-divine-gold transition-all duration-300">
+                        <textarea
+                            ref={textareaRef}
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
-                            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" && !e.shiftKey) {
+                                    e.preventDefault();
+                                    sendMessage();
+                                }
+                            }}
                             placeholder="Ask for guidance..."
-                            className="flex-1 bg-transparent px-3 sm:px-4 py-3 sm:py-3.5 outline-none text-sacred-cream placeholder:text-sacred-cream/40 text-base sm:text-lg"
+                            rows={1}
+                            className="flex-1 bg-transparent px-3 sm:px-4 py-3 sm:py-3.5 outline-none text-sacred-cream placeholder:text-sacred-cream/40 text-base sm:text-lg resize-none max-h-32 custom-scrollbar"
                         />
                         <button
                             onClick={sendMessage}
