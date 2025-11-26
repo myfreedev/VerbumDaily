@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Sparkles, Image as ImageIcon, Loader2, Maximize2, Download, X } from "lucide-react";
+import { Sparkles, Image as ImageIcon, Loader2, Maximize2, Download, X, Share2 } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 

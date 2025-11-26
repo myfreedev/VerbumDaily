@@ -1,6 +1,7 @@
 "use client";
 
 import { Playfair_Display, Geist } from "next/font/google";
+import { useState, useEffect } from "react";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
