@@ -1,0 +1,378 @@
+@import "tailwindcss";
+
+:root {
+  /* Award-Winning Holy Color Palette */
+  --divine-blue-deep: #0f172a;
+  --divine-blue: #1e3a8a;
+  --divine-blue-light: #3b82f6;
+
+  --divine-gold: #fbbf24;
+  --divine-gold-light: #fcd34d;
+  --divine-gold-dark: #d97706;
+
+  --holy-white: #ffffff;
+  --sacred-cream: #f8fafc;
+
+  --divine-purple: #581c87;
+  --divine-purple-light: #7e22ce;
+
+  /* Premium Gradients */
+  --gradient-divine: linear-gradient(135deg, var(--divine-blue-deep) 0%, var(--divine-blue) 100%);
+  --gradient-holy: linear-gradient(to bottom, #020617, #0f172a, #1e1b4b);
+  --gradient-radiant: radial-gradient(circle at center, rgba(251, 191, 36, 0.15) 0%, transparent 70%);
+
+  /* Shadows */
+  --shadow-divine: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
+  --shadow-holy: 0 0 30px rgba(251, 191, 36, 0.15);
+  --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.3);
+}
+
+@theme {
+  --color-divine-blue-deep: var(--divine-blue-deep);
+  --color-divine-blue: var(--divine-blue);
+  --color-divine-blue-light: var(--divine-blue-light);
+  --color-divine-gold: var(--divine-gold);
+  --color-divine-gold-light: var(--divine-gold-light);
+  --color-divine-gold-dark: var(--divine-gold-dark);
+  --color-holy-white: var(--holy-white);
+  --color-sacred-cream: var(--sacred-cream);
+  --color-divine-purple: var(--divine-purple);
+  --color-divine-purple-light: var(--divine-purple-light);
+
+  --color-celestial-gold: var(--divine-gold);
+  --color-pure-white: var(--holy-white);
+
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-geist-sans);
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/10 backdrop-blur-3xl border border-white/20 shadow-2xl;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  }
+
+  .text-shadow-gold {
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+  }
+}
+
+body {
+  background: var(--gradient-holy);
+  color: var(--holy-white);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Divine Background Effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Typography - Glowing White */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--holy-white);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(251, 191, 36, 0.2);
+}
+
+p,
+span,
+div {
+  color: var(--sacred-cream);
+}
+
+/* Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes beam {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: rotate(-15deg) translateX(0);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: rotate(-15deg) translateX(10px);
+  }
+}
+
+@keyframes flow-cross {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    opacity: 0.05;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) rotate(5deg) scale(1.1);
+    opacity: 0.1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    opacity: 0.05;
+  }
+}
+
+@keyframes divineLight {
+  0% {
+    opacity: 0.3;
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translateY(-20px) scale(1.1);
+  }
+
+  100% {
+    opacity: 0.3;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes radiantPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-beam {
+  animation: beam 8s ease-in-out infinite;
+}
+
+.animate-flow-cross {
+  animation: flow-cross 20s ease-in-out infinite;
+}
+
+.divine-light {
+  animation: divineLight 4s ease-in-out infinite;
+}
+
+.glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.shimmer {
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0) 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 3s infinite;
+}
+
+.radiant-pulse {
+  animation: radiantPulse 2s ease-in-out infinite;
+}
+
+/* Particles */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(251, 191, 36, 0.6);
+  opacity: 0.3;
+  animation: float-particle 20s infinite linear;
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.5;
+  }
+
+  90% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateY(-100vh) translateX(20px);
+    opacity: 0;
+  }
+}
+
+/* Floating Crosses Animation */
+@keyframes floatCross {
+  0% {
+    transform: translateY(100vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.6;
+  }
+
+  90% {
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateY(-100vh) translateX(30px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.floating-cross {
+  position: absolute;
+  opacity: 0.4;
+  animation: floatCross 25s infinite linear;
+  pointer-events: none;
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.8));
+}
+
+/* Yellow Glow on Click/Hover for Interactive Elements */
+a,
+button,
+.clickable {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+a:hover,
+button:hover,
+.clickable:hover {
+  text-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
+}
+
+a:active,
+button:active,
+.clickable:active {
+  animation: yellowPulse 0.3s ease-out;
+}
+
+@keyframes yellowPulse {
+  0% {
+    filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 20px rgba(251, 191, 36, 1));
+    transform: scale(1.05);
+  }
+
+  100% {
+    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
+    transform: scale(1);
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--divine-blue-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--divine-gold);
+  border-radius: 6px;
+  border: 2px solid var(--divine-blue-deep);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--divine-gold-light);
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+/* Custom Narrow Scrollbar for Chat */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.2);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(251, 191, 36, 0.3);
+  border-radius: 10px;
+  border: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(251, 191, 36, 0.5);
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.3);
+}
+
+/* Firefox scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(251, 191, 36, 0.3) rgba(15, 23, 42, 0.2);
+}
+
+/* Selection */
+::selection {
+  background: var(--divine-gold);
+  color: var(--divine-blue-deep);
+}
