@@ -29,13 +29,23 @@ export default function ChatContent() {
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const scrollToBottom = (behavior: ScrollBehavior = "smooth") => {
+        messagesEndRef.current?.scrollIntoView({ behavior });
     };
 
     useEffect(() => {
-        scrollToBottom();
+        scrollToBottom("smooth");
     }, [messages]);
+
+    // Scroll to bottom on resize (keyboard open/close)
+    useEffect(() => {
+        const handleResize = () => {
+            // Use 'auto' behavior on resize to prevent jank
+            scrollToBottom("auto");
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     // Reset messages when saint changes
     useEffect(() => {
@@ -98,8 +108,8 @@ export default function ChatContent() {
     }
 
     return (
-        <div className="fixed inset-0 z-10 flex flex-col pt-24">
-            <div className="w-full max-w-5xl mx-auto flex-1 relative px-4 flex flex-col">
+        <div className="fixed inset-0 z-10 flex flex-col pt-24 h-[100dvh]">
+            <div className="w-full max-w-5xl mx-auto flex-1 relative px-4 flex flex-col min-h-0">
                 {/* Saint Header - Fixed at top of container */}
                 <div className="glass-panel p-4 rounded-3xl mb-4 border-2 border-divine-gold/30 flex-shrink-0">
                     <div className="flex items-center gap-4">
@@ -128,7 +138,7 @@ export default function ChatContent() {
                 {/* Messages Area - Scrollable with bottom padding for fixed footer 
                     CHANGE: Use the INPUT_AREA_PADDING variable in the class list.
                 */}
-                <div className="flex-1 overflow-y-auto px-2 space-y-6 custom-scrollbar min-h-0 pb-40 sm:pb-48">
+                <div className="flex-1 overflow-y-auto px-2 space-y-6 custom-scrollbar min-h-0 pb-32 sm:pb-40">
                     {messages.length === 0 && (
                         <div className="h-full flex flex-col items-center justify-center text-center opacity-80 py-12">
                             <div className="relative w-32 h-32 mx-auto mb-6">
